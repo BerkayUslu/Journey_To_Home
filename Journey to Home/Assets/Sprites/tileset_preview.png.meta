@@ -329,6 +329,9 @@ TextureImporter:
   - first:
       213: 7807173597397893922
     second: tileset_preview_108
+  - first:
+      213: -4154966970619441432
+    second: tileset_preview_109
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -2726,6 +2729,27 @@ TextureImporter:
       bones: []
       spriteID: 223c5bcc507a85c60800000000000000
       internalID: 7807173597397893922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_preview_109
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 182
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ee4fbedd879656c0800000000000000
+      internalID: -4154966970619441432
       vertices: []
       indices: 
       edges: []
