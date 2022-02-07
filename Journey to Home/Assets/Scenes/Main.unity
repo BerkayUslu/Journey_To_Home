@@ -3656,41 +3656,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &1278479120 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7407380408756357297, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
-  m_PrefabInstance: {fileID: 7407380407482074017}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1278479121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1278479120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d7505b55fb9a144b8b3aa713d1ec7177, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &2046134385
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,11 +3799,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7407380408756357298, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.69
+      value: -0.324
       objectReference: {fileID: 0}
     - target: {fileID: 7407380408756357298, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.96
+      value: 0.452
       objectReference: {fileID: 0}
     - target: {fileID: 7407380408756357298, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: m_LocalPosition.z
