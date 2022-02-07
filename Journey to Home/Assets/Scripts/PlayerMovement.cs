@@ -14,9 +14,11 @@ public class PlayerMovement : MonoBehaviour
     string JUMPING = "JUMPING";
     string HURT = "HURT";
 
-    //
+    //cache
     Rigidbody2D rigidbody;
     Vector2 moveInput;
+    [SerializeField]int jumpsInput = 200;
+    [SerializeField] int movementSpeed = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +30,23 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+        Skipping();
 
     }
 
-     OnMove(InputValue value)
+    private void Skipping()
     {
+        rigidbody.velocity = moveInput * movementSpeed * Time.deltaTime;
+    }
 
+    void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+    }
+
+    void OnJump(InputValue value)
+    {
+        rigidbody.AddForce(new Vector2(0, jumpsInput));
     }
 
 }
