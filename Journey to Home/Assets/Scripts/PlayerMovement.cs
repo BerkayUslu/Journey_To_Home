@@ -15,28 +15,83 @@ public class PlayerMovement : MonoBehaviour
     string HURT = "HURT";
 
     //cache
-    Rigidbody2D rigidbody;
+    private Rigidbody2D myRigidbody;
+    private Animator myAnimator;
+
     Vector2 moveInput;
-    [SerializeField]int jumpsInput = 200;
-    [SerializeField] int movementSpeed = 5;
+
+    [Header("Movement")]
+    [SerializeField] int playerVelocityConstant = 5;
+    [SerializeField] int jumpVelocityConstant = 5;
+    [Header("Collider")]
+    [SerializeField] CompositeCollider2D tileMapCollider;
+    [Header("State")]
+    [SerializeField] string playerState;
+    [SerializeField] string prvPlayerState;
+
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
+        prvPlayerState = IDLING;
+        CheckPlayerState();
+    }
+
+    //Controls and deciders player's state
+    private void CheckPlayerState()
+    {
+        prvPlayerState = playerState;
+        if (YPositionGetsLower())
+        {
+            playerState = FALLING;
+        }
+        else if (!myRigidbody.IsTouching(tileMapCollider))
+        {
+            playerState = JUMPING;
+        }else if (moveInput.x != 0)
+        {
+            playerState = SKIPPING;
+        }
+        else {
+            playerState = IDLING;
+        }
         
+    }
+
+    private bool YPositionGetsLower()
+    {
+        return myRigidbody.velocity.y < -0.01;
     }
 
     // Update is called once per frame
     void Update()
     {
         Skipping();
+        CheckPlayerState();
+        FlipSprite();
+        PlayAnimation();
+    }
 
+    private void PlayAnimation()
+    {
+        if(prvPlayerState != playerState)
+        {
+            myAnimator.SetBool(prvPlayerState, false);
+        }
+        myAnimator.SetBool(playerState, true);
+    }
+
+    private void FlipSprite()
+    {
+        transform.localScale = new Vector3(Mathf.Sign(moveInput.x),1,1);
     }
 
     private void Skipping()
     {
-        rigidbody.velocity = moveInput * movementSpeed * Time.deltaTime;
+        Vector2 playerVelocity = new Vector2(moveInput.x * playerVelocityConstant, myRigidbody.velocity.y);
+        myRigidbody.velocity = playerVelocity;
     }
 
     void OnMove(InputValue value)
@@ -46,7 +101,12 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        rigidbody.AddForce(new Vector2(0, jumpsInput));
+        if ((playerState != JUMPING) && (playerState != FALLING))
+        {
+            Vector2 jumpVelocity = new Vector2(0, 1) * jumpVelocityConstant;
+            myRigidbody.velocity = jumpVelocity;
+        }
     }
+
 
 }
