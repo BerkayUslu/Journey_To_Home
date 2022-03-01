@@ -21,10 +21,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
 
     [Header("Movement")]
-    [SerializeField] int playerVelocityConstant = 5;
-    [SerializeField] int jumpVelocityConstant = 5;
+    [SerializeField] float playerVelocityConstant = 5f;
+    [SerializeField] float jumpVelocityConstant = 5f;
     [Header("Collider")]
-    [SerializeField] CompositeCollider2D tileMapCollider;
     [Header("State")]
     [SerializeField] string playerState;
     [SerializeField] string prvPlayerState;
@@ -47,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerState = FALLING;
         }
-        else if (!myRigidbody.IsTouching(tileMapCollider))
+        else if (!myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             playerState = JUMPING;
         }else if (moveInput.x != 0)
@@ -85,7 +84,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipSprite()
     {
-        transform.localScale = new Vector3(Mathf.Sign(moveInput.x),1,1);
+        //epsilon is smallest value of float 
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+        if (playerHasHorizontalSpeed) {
+            transform.localScale = new Vector3(Mathf.Sign(myRigidbody.velocity.x), 1, 1);
+        }
     }
 
     private void Skipping()
