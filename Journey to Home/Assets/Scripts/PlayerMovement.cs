@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float playerVelocityConstant = 5f;
     [SerializeField] float jumpVelocityConstant = 5f;
+    [SerializeField] float ladderClimbingSpeed = 1f;
     [Header("Collider")]
     [Header("State")]
     [SerializeField] string playerState;
@@ -45,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
         if (YPositionGetsLower())
         {
             playerState = FALLING;
+        }else if (myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder")) && (moveInput.y != 0))
+        {
+            playerState = CLIMBING;
         }
         else if (!myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -71,6 +75,17 @@ public class PlayerMovement : MonoBehaviour
         CheckPlayerState();
         FlipSprite();
         PlayAnimation();
+        LadderClimbing();
+    }
+
+    private void LadderClimbing()
+    {
+        if (playerState == CLIMBING)
+        {
+            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x,  moveInput.y * ladderClimbingSpeed);
+        }
+
+        
     }
 
     private void PlayAnimation()
