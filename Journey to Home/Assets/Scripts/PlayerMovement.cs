@@ -24,11 +24,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float playerVelocityConstant = 5f;
     [SerializeField] float jumpVelocityConstant = 5f;
     [SerializeField] float ladderClimbingSpeed = 1f;
+    float beginingGravityScale;
     [Header("Collider")]
-    [SerializeField] bool touchingLadder;
     [Header("State")]
     [SerializeField] string playerState;
     [SerializeField] string prvPlayerState;
+
 
 
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         prvPlayerState = IDLING;
         CheckPlayerState();
+        beginingGravityScale = myRigidbody.gravityScale;
     }
 
     //Controls and deciders player's state
@@ -45,56 +47,64 @@ public class PlayerMovement : MonoBehaviour
     {
         prvPlayerState = playerState;
 
-        if (myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder")) && (moveInput.y != 0))
+        if (myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
             playerState = CLIMBING;
         }
         else if (YPositionGetsLower())
+
         {
             playerState = FALLING;
         }
         else if (!myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             playerState = JUMPING;
-        }else if (moveInput.x != 0)
+        }
+        else if (moveInput.x != 0)
         {
             playerState = SKIPPING;
         }
-        else {
+        else
+        {
             playerState = IDLING;
         }
-        
+
     }
 
     private bool YPositionGetsLower()
     {
-        return myRigidbody.velocity.y < -0.01;
+
+        return myRigidbody.velocity.y <= -0.01;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        touchingLadder = myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder"));
         Skipping();
         CheckPlayerState();
+        LadderClimbing();
         FlipSprite();
         PlayAnimation();
-        LadderClimbing();
     }
 
     private void LadderClimbing()
     {
-        if (playerState == CLIMBING)
+        if (!myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
-            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x,  moveInput.y * ladderClimbingSpeed);
+            myRigidbody.gravityScale = beginingGravityScale;
+            return;
         }
 
-        
+
+        myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, moveInput.y * ladderClimbingSpeed);
+        myRigidbody.gravityScale = 0f;
+
     }
 
     private void PlayAnimation()
     {
-        if(prvPlayerState != playerState)
+        if (prvPlayerState != playerState)
         {
             myAnimator.SetBool(prvPlayerState, false);
         }
@@ -105,7 +115,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //epsilon is smallest value of float 
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
-        if (playerHasHorizontalSpeed) {
+        if (playerHasHorizontalSpeed)
+        {
             transform.localScale = new Vector3(Mathf.Sign(myRigidbody.velocity.x), 1, 1);
         }
     }

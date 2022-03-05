@@ -47,6 +47,9 @@ TagManager:
   - name: Platforms
     uniqueID: 3365248543
     locked: 0
+  - name: Climbing
+    uniqueID: 3724479239
+    locked: 0
   - name: Player
     uniqueID: 1639367163
     locked: 0
