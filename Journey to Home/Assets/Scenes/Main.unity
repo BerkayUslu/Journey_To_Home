@@ -8098,6 +8098,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1000551900}
     - target: {fileID: 7407380408756357303, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
+      propertyPath: ladderClimbingSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407380408756357303, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: jumpVelocityConstant
       value: 7
       objectReference: {fileID: 0}

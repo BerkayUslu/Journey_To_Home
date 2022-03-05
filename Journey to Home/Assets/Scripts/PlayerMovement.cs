@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpVelocityConstant = 5f;
     [SerializeField] float ladderClimbingSpeed = 1f;
     [Header("Collider")]
+    [SerializeField] bool touchingLadder;
     [Header("State")]
     [SerializeField] string playerState;
     [SerializeField] string prvPlayerState;
@@ -43,12 +44,14 @@ public class PlayerMovement : MonoBehaviour
     private void CheckPlayerState()
     {
         prvPlayerState = playerState;
-        if (YPositionGetsLower())
-        {
-            playerState = FALLING;
-        }else if (myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder")) && (moveInput.y != 0))
+
+        if (myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder")) && (moveInput.y != 0))
         {
             playerState = CLIMBING;
+        }
+        else if (YPositionGetsLower())
+        {
+            playerState = FALLING;
         }
         else if (!myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -71,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        touchingLadder = myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ladder"));
         Skipping();
         CheckPlayerState();
         FlipSprite();
