@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     //cache
     private Rigidbody2D myRigidbody;
     private Animator myAnimator;
+    private BoxCollider2D feetCollider;
 
     Vector2 moveInput;
 
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        feetCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         prvPlayerState = IDLING;
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerState = FALLING;
         }
-        else if (!myRigidbody.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        else if (!feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             playerState = JUMPING;
         }
