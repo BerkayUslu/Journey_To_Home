@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Sign(myRigidbody.velocity.x), 1, 1);
         }
     }
-
+  
     private void Skipping()
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * playerVelocityConstant, myRigidbody.velocity.y);
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
-
+    
     void OnJump(InputValue value)
     {
         if ((playerState != JUMPING) && (playerState != FALLING))
