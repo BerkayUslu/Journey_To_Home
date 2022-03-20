@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,24 @@ using UnityEngine;
 public class Enemies : MonoBehaviour
 {
     private Rigidbody2D myRigidbody;
+    private BoxCollider2D myBoxCollider;
+    [SerializeField] private BoxCollider2D playerFeetCollider;
+    [SerializeField] private float intervalTime = 4;
     
     // Start is called before the first frame update
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        myBoxCollider = GetComponent<BoxCollider2D>();
         StartCoroutine(Walk());
+    }
+
+    private void Update()
+    {
+        if (myBoxCollider.IsTouching(playerFeetCollider))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void spriteDirection(int directionValue)
@@ -27,7 +40,7 @@ public class Enemies : MonoBehaviour
             Vector2 enemySpeed = new Vector2(directionDecisionValue, 0);
             myRigidbody.velocity = enemySpeed;
             spriteDirection(directionDecisionValue);
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(intervalTime);
             directionDecisionValue *= -1;
         }
     }
