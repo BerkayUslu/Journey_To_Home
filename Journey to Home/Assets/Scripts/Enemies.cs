@@ -7,41 +7,41 @@ public class Enemies : MonoBehaviour
 {
     private Rigidbody2D myRigidbody;
     private BoxCollider2D myBoxCollider;
+    private CapsuleCollider2D myCapsuleCollider;
     [SerializeField] private BoxCollider2D playerFeetCollider;
     [SerializeField] private float intervalTime = 4;
-    
-    // Start is called before the first frame update
+    [SerializeField] private float enemySpeed = 1f;
+
     void Awake()
     {
+        myCapsuleCollider = GetComponent<CapsuleCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myBoxCollider = GetComponent<BoxCollider2D>();
-        StartCoroutine(Walk());
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (myBoxCollider.IsTouching(playerFeetCollider))
+        destroyObjectIfPlayerFeetTouches();
+        Walk();
+    }
+
+    private void destroyObjectIfPlayerFeetTouches()
+    {
+        if (myCapsuleCollider.IsTouching(playerFeetCollider))
         {
             Destroy(gameObject);
         }
     }
-
-    private void spriteDirection(int directionValue)
+    
+    private void Walk()
     {
-        Vector3 scaleValue = new Vector3(-directionValue, 1, 1);
-        transform.localScale = scaleValue;
-    }
-
-    IEnumerator Walk()
-    {
-        int directionDecisionValue = -1;
-        while (true)
         {
-            Vector2 enemySpeed = new Vector2(directionDecisionValue, 0);
-            myRigidbody.velocity = enemySpeed;
-            spriteDirection(directionDecisionValue);
-            yield return new WaitForSeconds(intervalTime);
-            directionDecisionValue *= -1;
+            if (myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                gameObject.transform.localScale = new Vector3(transform.localScale.x*-1,1,1);
+            }
+            Vector2 currentEnemySpeed = new Vector2(-transform.localScale.x*enemySpeed, 0);
+            myRigidbody.velocity = currentEnemySpeed;
         }
     }
 }
