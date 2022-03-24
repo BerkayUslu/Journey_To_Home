@@ -264,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232344957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.095715, y: -11.309783, z: -7.054744}
+  m_LocalPosition: {x: -31.085712, y: -12.149783, z: -7.054744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 345090477}
@@ -354,7 +354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251720325}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.095715, y: -11.309783, z: -7.054744}
+  m_LocalPosition: {x: -31.085712, y: -12.149783, z: -7.054744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1264565052}
@@ -886,7 +886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -72.996925, y: -1.4031254, z: -10}
+  m_LocalPosition: {x: -72.9972, y: -1.4031255, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12295,9 +12295,9 @@ GameObject:
   - component: {fileID: 1571687973}
   - component: {fileID: 1571687974}
   - component: {fileID: 1571687968}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Slug
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12398,7 +12398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571687967}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -75.63, y: -4.672, z: 0}
+  m_LocalPosition: {x: -78.359, y: -4.672, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12451,7 +12451,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.34799194, y: -0.13125277}
+  m_Offset: {x: -0.45, y: -0.2820673}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -12462,7 +12462,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06, y: 0.06906891}
+  m_Size: {x: 0.024140596, y: 0.37069798}
   m_EdgeRadius: 0
 --- !u!4 &1695771920 stripped
 Transform:
@@ -12530,7 +12530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701986563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.095715, y: -11.309783, z: -7.054744}
+  m_LocalPosition: {x: -31.085712, y: -12.149783, z: -7.054744}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 991240487}
@@ -13024,11 +13024,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7407380408756357298, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -74.26
+      value: -76.25
       objectReference: {fileID: 0}
     - target: {fileID: 7407380408756357298, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.78
+      value: -2.62
       objectReference: {fileID: 0}
     - target: {fileID: 7407380408756357298, guid: ef7e3aacdd6c143a9a6f4a226208738f, type: 3}
       propertyPath: m_LocalPosition.z

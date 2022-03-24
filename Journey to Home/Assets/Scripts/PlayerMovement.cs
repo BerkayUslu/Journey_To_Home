@@ -18,8 +18,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private Animator myAnimator;
     private BoxCollider2D feetCollider;
+    private CapsuleCollider2D myCapsuleCollider;
 
     Vector2 moveInput;
+    private bool isAlive = true;
 
     [Header("Movement")]
     [SerializeField] float playerVelocityConstant = 5f;
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        myCapsuleCollider = GetComponent<CapsuleCollider2D>();
         feetCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
@@ -83,11 +86,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive) {Die();return;}
         Skipping();
         CheckPlayerState();
         LadderClimbing();
         FlipSprite();
         PlayAnimation();
+    }
+
+    private void Die()
+    {
+        myRigidbody.velocity = new Vector2(0, 0);
     }
 
     private void LadderClimbing()
@@ -131,11 +140,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        if (!isAlive) {return;}
         moveInput = value.Get<Vector2>();
     }
     
     void OnJump(InputValue value)
     {
+        if (!isAlive) {return;}
         if ((playerState != JUMPING) && (playerState != FALLING))
         {
             Vector2 jumpVelocity = new Vector2(0, 1) * jumpVelocityConstant;
@@ -143,5 +154,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        {
+            isAlive = false;
+        }
+    }
 
 }

@@ -32,14 +32,24 @@ public class Enemies : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        flipEnemypSprite();
+    }
+
+    private void flipEnemypSprite()
+    {
+        gameObject.transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), 1, 1);
+    }
+
     private void Walk()
     {
         {
-            if (myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            /*if (myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
-                gameObject.transform.localScale = new Vector3(transform.localScale.x*-1,1,1);
-            }
+                flipEnemySprite();
+            }*/
             Vector2 currentEnemySpeed = new Vector2(-transform.localScale.x*enemySpeed, 0);
             myRigidbody.velocity = currentEnemySpeed;
         }
