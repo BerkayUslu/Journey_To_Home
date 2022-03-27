@@ -9,7 +9,6 @@ public class Enemies : MonoBehaviour
     private BoxCollider2D myBoxCollider;
     private CapsuleCollider2D myCapsuleCollider;
     [SerializeField] private BoxCollider2D playerFeetCollider;
-    [SerializeField] private float intervalTime = 4;
     [SerializeField] private float enemySpeed = 1f;
 
     void Awake()
@@ -27,6 +26,7 @@ public class Enemies : MonoBehaviour
 
     private void destroyObjectIfPlayerFeetTouches()
     {
+        if (playerFeetCollider == null) {return;}
         if (myCapsuleCollider.IsTouching(playerFeetCollider))
         {
             Destroy(gameObject);

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     string SKIPPING = "SKIPPING";
     string CLIMBING = "CLIMBING";
     string FALLING = "FALLING";
-    string DUCKING = "DUCKING";
+   // string DUCKING = "DUCKING";
     string JUMPING = "JUMPING";
     string HURT = "HURT";
 
@@ -78,15 +78,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool YPositionGetsLower()
     {
-
         return myRigidbody.velocity.y <= -0.01;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive) {Die();return;}
+        if (!isAlive) {return;}
         Skipping();
         CheckPlayerState();
         LadderClimbing();
@@ -96,7 +94,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Die()
     {
-        myRigidbody.velocity = new Vector2(0, 0);
+        isAlive = false;
+        Destroy(feetCollider);
+        Destroy(myCapsuleCollider);
+        myAnimator.SetBool(playerState, false); 
+        myAnimator.SetBool(HURT, true);
+        myRigidbody.bodyType = RigidbodyType2D.Static;
     }
 
     private void LadderClimbing()
@@ -158,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
-            isAlive = false;
+            Die();
         }
     }
 
